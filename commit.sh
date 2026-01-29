@@ -105,11 +105,13 @@ if [[ "$confirma" =~ ^[Nn]$ ]]; then
     exit 0
 fi
 
-# 8. FAZER O COMMIT
+# 8. FAZER O COMMIT E PUSH
 if [ -n "$corpo" ]; then
     git commit -m "$mensagem_curta" -m "$corpo"
+    git push
 else
     git commit -m "$mensagem_curta"
+    git push
 fi
 
 # 9. VERIFICAR SUCESSO
@@ -119,6 +121,35 @@ if [ $? -eq 0 ]; then
     echo ""
     echo -e "${BLUE}Último commit:${NC}"
     git log -1 --oneline
+else
+    echo -e "${RED}✗ Erro ao fazer commit!${NC}"
+    exit 1
+fi
+
+# 10. FAZER PUSH
+    echo -e "${YELLOW}Deseja fazer PUSH agora? (S/n):${NC}"
+    read -p "> " fazer_push
+
+    if [[ ! "$fazer_push" =~ ^[Nn]$ ]]; then
+        echo ""
+        echo -e "${BLUE}Fazendo push...${NC}"
+
+        # Pega a branch atual
+        branch=$(git branch --show-current)
+
+        git push origin "$branch"
+
+        if [ $? -eq 0 ]; then
+            echo ""
+            echo -e "${GREEN}✓ Push realizado com sucesso para origin/$branch!${NC}"
+        else
+            echo ""
+            echo -e "${RED}✗ Erro ao fazer push!${NC}"
+            exit 1
+        fi
+    else
+        echo -e "${YELLOW}Push cancelado. Execute 'git push' manualmente quando quiser.${NC}"
+    fi
 else
     echo -e "${RED}✗ Erro ao fazer commit!${NC}"
     exit 1
