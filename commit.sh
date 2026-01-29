@@ -150,7 +150,3 @@ fi
     else
         echo -e "${YELLOW}Push cancelado. Execute 'git push' manualmente quando quiser.${NC}"
     fi
-else
-    echo -e "${RED}✗ Erro ao fazer commit!${NC}"
-    exit 1
-fi
