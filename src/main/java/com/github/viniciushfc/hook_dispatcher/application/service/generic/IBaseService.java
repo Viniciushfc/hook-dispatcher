@@ -4,15 +4,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
-public interface IBaseService<ID, T, D> {
+public interface IBaseService<ID, E, D> {
 
-    T save(D dto);
+    E save(D dto);
 
-    Page<T> findAll(Pageable pageable, Specification<T> spec);
+    Page<E> findAll(Pageable pageable, Specification<E> spec);
 
-    T findById(ID id);
+    E findById(ID id);
 
-    T update(ID id, D dto);
+    E update(ID id, D dto);
 
     String delete(ID id);
 }
