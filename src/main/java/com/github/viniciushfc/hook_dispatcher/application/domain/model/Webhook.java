@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,11 +38,11 @@ public class Webhook extends AbstractEntity {
     @Column(name = "url")
     private String url;
 
-    @ElementCollection
-    @CollectionTable(
-            name = "hd_webhook_events",
-            joinColumns = {@JoinColumn(name = "id_webhook")}
+    @OneToMany(
+            mappedBy = "webhook",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
-    private List<String> events;
-
+    private List<WebhookEvent> events = new ArrayList<>();
 }
