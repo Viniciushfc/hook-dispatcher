@@ -1,4 +1,4 @@
-package com.github.viniciushfc.hook_dispatcher.application.domain.dto;
+package com.github.viniciushfc.hook_dispatcher.application.dtos;
 
 import com.github.viniciushfc.hook_dispatcher.application.domain.generic.AbstractEntityDTO;
 import lombok.Data;
