@@ -25,7 +25,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/public/**", "/**").permitAll() // TODO: remover /** quando finalizar o desenv
                             .anyRequest().authenticated();
-                });
+                })
+                .formLogin(form -> form.disable())
+                .httpBasic(basic -> basic.disable());
 
         return httpSecurity.build();
     }
