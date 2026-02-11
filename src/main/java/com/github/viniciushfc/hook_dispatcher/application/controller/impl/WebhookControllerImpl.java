@@ -4,6 +4,7 @@ import com.github.viniciushfc.hook_dispatcher.application.controller.IWebhookCon
 import com.github.viniciushfc.hook_dispatcher.application.controller.generic.AbstractControllerImpl;
 import com.github.viniciushfc.hook_dispatcher.application.dtos.WebhookDTO;
 import com.github.viniciushfc.hook_dispatcher.application.service.IWebhookService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,9 +12,8 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(IWebhookController.PATH)
-public class WebhookControllerImpl extends AbstractControllerImpl<UUID, WebhookDTO> implements IWebhookController {
+@RequiredArgsConstructor
+public class WebhookControllerImpl extends AbstractControllerImpl<UUID, WebhookDTO, IWebhookService> implements IWebhookController {
 
-    public WebhookControllerImpl(IWebhookService webhookService) {
-        super(webhookService);
-    }
+    private final IWebhookService webhookService;
 }

@@ -6,14 +6,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-public abstract class AbstractControllerImpl<ID, D>
+public abstract class AbstractControllerImpl<ID, D, S extends IBaseService<ID, D>>
         implements IBaseController<ID, D> {
 
-    private final IBaseService<ID, D> service;
-
-    protected AbstractControllerImpl(IBaseService<ID, D> service) {
-        this.service = service;
-    }
+    protected S service;
 
     @Override
     public ResponseEntity<D> save(D dto) {
