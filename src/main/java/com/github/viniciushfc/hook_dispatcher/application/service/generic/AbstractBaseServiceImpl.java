@@ -1,12 +1,15 @@
 package com.github.viniciushfc.hook_dispatcher.application.service.generic;
 
 import com.github.viniciushfc.hook_dispatcher.application.converter.Converter;
+import jakarta.annotation.PostConstruct;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,15 +17,21 @@ import java.util.stream.Collectors;
 public abstract class AbstractBaseServiceImpl<ID, E, D, R extends JpaRepository<E, ID> & JpaSpecificationExecutor<E>>
         implements IBaseService<ID, D> {
 
-    private final Class<E> entityClass;
-    private final Class<D> dtoClass;
-    private final R repository;
+    protected R repository;
+    private Class<E> entityClass;
+    private Class<D> dtoClass;
 
     @SuppressWarnings("unchecked")
-    protected AbstractBaseServiceImpl(Class<E> entityClass, Class<D> dtoClass, R repository) {
-        this.repository = repository;
-        this.entityClass = entityClass;
-        this.dtoClass = dtoClass;
+    @PostConstruct
+    private void init() {
+        Type genericSuperclass = getClass().getGenericSuperclass();
+
+        if (genericSuperclass instanceof ParameterizedType parameterizedType) {
+            Type[] typeArguments = parameterizedType.getActualTypeArguments();
+
+            this.entityClass = (Class<E>) typeArguments[1];
+            this.dtoClass = (Class<D>) typeArguments[2];
+        }
     }
 
     @Override
