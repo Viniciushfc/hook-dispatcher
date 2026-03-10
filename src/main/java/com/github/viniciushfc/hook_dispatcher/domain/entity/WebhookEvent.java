@@ -25,6 +25,6 @@ public class WebhookEvent extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_webhook")
-    private Webhook Webhook;
+    private Webhook webhook;
 
 }
