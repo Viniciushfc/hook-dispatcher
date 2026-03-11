@@ -1,6 +1,6 @@
 package com.github.viniciushfc.hook_dispatcher.domain.enums;
 
-import com.github.viniciushfc.hook_dispatcher.domain.enums.generic.IEnum;
+import com.github.viniciushfc.hook_dispatcher.domain.enums.contract.IEnum;
 
 public enum EnumEventName implements IEnum<String, String> {
 
