@@ -40,5 +40,7 @@ public class WebhookServiceImpl extends AbstractBaseServiceImpl<Webhook, UUID, W
     @Override
     public void desativeWebhook(UUID idWebhook) {
         log.info("Desativando webhook. id={}", idWebhook);
+        findById(idWebhook);
+        webhookRepository.deleteById(idWebhook);
     }
 }
