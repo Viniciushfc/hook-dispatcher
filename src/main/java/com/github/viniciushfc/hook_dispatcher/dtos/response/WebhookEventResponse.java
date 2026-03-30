@@ -1,16 +1,14 @@
-package com.github.viniciushfc.hook_dispatcher.dtos;
+package com.github.viniciushfc.hook_dispatcher.dtos.response;
 
-import com.github.viniciushfc.hook_dispatcher.domain.entity.Webhook;
 import com.github.viniciushfc.hook_dispatcher.domain.enums.EnumEventName;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
-public class WebhookEventDTO {
+public class WebhookEventResponse {
 
     private UUID id;
     private EnumEventName name;
     private boolean active;
-    private Webhook webhook;
 }

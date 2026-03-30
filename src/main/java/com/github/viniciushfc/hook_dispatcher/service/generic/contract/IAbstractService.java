@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface IAbstractService<E extends AbstractBaseEntity, I, D> {
 
-    List<E> findAll();
+    List<D> findAll();
 
-    E findById(I id);
+    D findById(I id);
 
     void deleteById(I id);
 }

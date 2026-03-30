@@ -4,6 +4,7 @@ import com.github.viniciushfc.hook_dispatcher.domain.entity.generic.AbstractBase
 import com.github.viniciushfc.hook_dispatcher.exception.HookDispatcherException;
 import com.github.viniciushfc.hook_dispatcher.service.generic.contract.IAbstractService;
 import jakarta.annotation.PostConstruct;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public abstract class AbstractBaseServiceImpl<E extends AbstractBaseEntity, I, D
     protected Class<E> entityClass;
     protected Class<D> dtoClass;
     protected JpaRepository<E, I> repository;
+
+    @Autowired
+    protected ModelMapper modelMapper;
 
     @Autowired
     private WebApplicationContext applicationContext;
@@ -43,26 +47,32 @@ public abstract class AbstractBaseServiceImpl<E extends AbstractBaseEntity, I, D
     }
 
     @Override
-    public List<E> findAll() {
+    public List<D> findAll() {
         log.info("Fetching all records of {}", entityClass.getSimpleName());
-        return repository.findAll();
+        return repository.findAll().stream()
+                .map(entity -> modelMapper.map(entity, dtoClass))
+                .toList();
     }
 
     @Override
-    public E findById(I id) {
+    public D findById(I id) {
         log.info("Fetching {} by id={}", entityClass.getSimpleName(), id);
-        return repository.findById(id)
-                .orElseThrow(() -> {
-                    log.warn("{} not found. id={}", entityClass.getSimpleName(), id);
-                    return new HookDispatcherException(entityClass.getSimpleName() + " not found with id: " + id);
-                });
+        return modelMapper.map(findEntityById(id), dtoClass);
     }
 
     @Override
     public void deleteById(I id) {
         log.info("Deleting {} by id={}", entityClass.getSimpleName(), id);
-        findById(id);
+        findEntityById(id);
         repository.deleteById(id);
         log.info("{} deleted successfully. id={}", entityClass.getSimpleName(), id);
+    }
+
+    protected E findEntityById(I id) {
+        return repository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("{} not found. id={}", entityClass.getSimpleName(), id);
+                    return new HookDispatcherException(entityClass.getSimpleName() + " not found with id: " + id);
+                });
     }
 }

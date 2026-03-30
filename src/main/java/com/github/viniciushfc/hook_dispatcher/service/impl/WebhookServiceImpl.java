@@ -1,42 +1,40 @@
 package com.github.viniciushfc.hook_dispatcher.service.impl;
 
 import com.github.viniciushfc.hook_dispatcher.domain.entity.Webhook;
-import com.github.viniciushfc.hook_dispatcher.dtos.WebhookDTO;
+import com.github.viniciushfc.hook_dispatcher.dtos.request.WebhookRequest;
+import com.github.viniciushfc.hook_dispatcher.dtos.response.WebhookResponse;
 import com.github.viniciushfc.hook_dispatcher.service.contract.IWebhookService;
 import com.github.viniciushfc.hook_dispatcher.service.generic.AbstractBaseServiceImpl;
-import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
-public class WebhookServiceImpl extends AbstractBaseServiceImpl<Webhook, UUID, WebhookDTO> implements IWebhookService {
-
-    private final ModelMapper modelMapper;
+public class WebhookServiceImpl extends AbstractBaseServiceImpl<Webhook, UUID, WebhookResponse> implements IWebhookService {
 
     @Override
     @Transactional
-    public WebhookDTO save(WebhookDTO dto) {
+    public WebhookResponse save(WebhookRequest request) {
         log.info("Saving new webhook");
-        Webhook webhook = modelMapper.map(dto, Webhook.class);
-        WebhookDTO saved = modelMapper.map(repository.save(webhook), WebhookDTO.class);
-            log.info("Webhook saved successfully. id={}", saved.getId());
-        return saved;
+        Webhook webhook = modelMapper.map(request, Webhook.class);
+        Webhook persisted = repository.save(webhook);
+        log.info("Webhook saved successfully. id={}", persisted.getId());
+        return modelMapper.map(persisted, WebhookResponse.class);
     }
 
     @Override
-    public WebhookDTO update(UUID idWebhook, WebhookDTO dto) {
+    @Transactional
+    public WebhookResponse update(UUID idWebhook, WebhookRequest request) {
         log.info("Updating webhook. id={}", idWebhook);
-        return null;
+        throw new UnsupportedOperationException("update not implemented yet");
     }
 
     @Override
+    @Transactional
     public void deactivateWebhook(UUID idWebhook) {
         log.info("Deactivating webhook. id={}", idWebhook);
-        Webhook webhook = findById(idWebhook);
+        Webhook webhook = findEntityById(idWebhook);
         webhook.setActive(false);
         repository.save(webhook);
         log.info("Webhook deactivated successfully. id={}", idWebhook);

@@ -1,10 +1,14 @@
 package com.github.viniciushfc.hook_dispatcher.controller.contract;
 
-import com.github.viniciushfc.hook_dispatcher.domain.entity.Webhook;
+import com.github.viniciushfc.hook_dispatcher.dtos.request.WebhookRequest;
+import com.github.viniciushfc.hook_dispatcher.dtos.response.WebhookResponse;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface IWebhookController {
 
-    List<Webhook> findAll();
+    ResponseEntity<List<WebhookResponse>> findAll();
+
+    ResponseEntity<WebhookResponse> save(WebhookRequest request);
 }

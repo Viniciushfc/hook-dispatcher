@@ -1,14 +1,15 @@
 package com.github.viniciushfc.hook_dispatcher.service.contract;
 
-import com.github.viniciushfc.hook_dispatcher.dtos.WebhookDTO;
+import com.github.viniciushfc.hook_dispatcher.dtos.request.WebhookRequest;
+import com.github.viniciushfc.hook_dispatcher.dtos.response.WebhookResponse;
 
 import java.util.UUID;
 
 public interface IWebhookService {
 
-    WebhookDTO save(WebhookDTO dto);
+    WebhookResponse save(WebhookRequest request);
 
-    WebhookDTO update(UUID idWebhook, WebhookDTO dto);
+    WebhookResponse update(UUID idWebhook, WebhookRequest request);
 
     void deactivateWebhook(UUID idWebhook);
 }
