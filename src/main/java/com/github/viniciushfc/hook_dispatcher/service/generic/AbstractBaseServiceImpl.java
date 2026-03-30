@@ -44,25 +44,25 @@ public abstract class AbstractBaseServiceImpl<E extends AbstractBaseEntity, I, D
 
     @Override
     public List<E> findAll() {
-        log.info("Buscando todos os registros de {}", entityClass.getSimpleName());
+        log.info("Fetching all records of {}", entityClass.getSimpleName());
         return repository.findAll();
     }
 
     @Override
     public E findById(I id) {
-        log.info("Buscando {} por id={}", entityClass.getSimpleName(), id);
+        log.info("Fetching {} by id={}", entityClass.getSimpleName(), id);
         return repository.findById(id)
                 .orElseThrow(() -> {
-                    log.warn("{} não encontrado. id={}", entityClass.getSimpleName(), id);
-                    return new HookDispatcherException("Não foi encontrado " + entityClass.getSimpleName() + " com o id: " + id);
+                    log.warn("{} not found. id={}", entityClass.getSimpleName(), id);
+                    return new HookDispatcherException(entityClass.getSimpleName() + " not found with id: " + id);
                 });
     }
 
     @Override
     public void deleteById(I id) {
-        log.info("Deletando {} por id={}", entityClass.getSimpleName(), id);
+        log.info("Deleting {} by id={}", entityClass.getSimpleName(), id);
         findById(id);
         repository.deleteById(id);
-        log.info("{} deletado com sucesso. id={}", entityClass.getSimpleName(), id);
+        log.info("{} deleted successfully. id={}", entityClass.getSimpleName(), id);
     }
 }

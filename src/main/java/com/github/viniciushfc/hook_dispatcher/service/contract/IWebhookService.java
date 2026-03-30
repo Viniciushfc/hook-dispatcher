@@ -10,5 +10,5 @@ public interface IWebhookService {
 
     WebhookDTO update(UUID idWebhook, WebhookDTO dto);
 
-    void desativeWebhook(UUID idWebhook);
+    void deactivateWebhook(UUID idWebhook);
 }

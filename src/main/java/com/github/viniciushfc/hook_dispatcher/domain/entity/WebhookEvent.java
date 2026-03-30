@@ -20,8 +20,8 @@ public class WebhookEvent extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     private EnumEventName name;
 
-    @Column(name = "ativo")
-    private boolean ativo;
+    @Column(name = "active")
+    private boolean active;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_webhook")

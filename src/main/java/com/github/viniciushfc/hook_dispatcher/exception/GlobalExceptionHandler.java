@@ -42,23 +42,23 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<ErrorResponse> handleMissingParam(MissingServletRequestParameterException e) {
-        return build(HttpStatus.BAD_REQUEST, "Parâmetro obrigatório ausente: " + e.getParameterName());
+        return build(HttpStatus.BAD_REQUEST, "Required parameter missing: " + e.getParameterName());
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponse> handleTypeMismatch(MethodArgumentTypeMismatchException e) {
-        String message = "Valor inválido para o parâmetro '" + e.getName() + "': " + e.getValue();
+        String message = "Invalid value for parameter '" + e.getName() + "': " + e.getValue();
         return build(HttpStatus.BAD_REQUEST, message);
     }
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ErrorResponse> handleAuthentication(AuthenticationException e) {
-        return build(HttpStatus.UNAUTHORIZED, "Autenticação necessária: " + e.getMessage());
+        return build(HttpStatus.UNAUTHORIZED, "Authentication required: " + e.getMessage());
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAccessDenied(AccessDeniedException e) {
-        return build(HttpStatus.FORBIDDEN, "Acesso negado.");
+        return build(HttpStatus.FORBIDDEN, "Access denied.");
     }
 
     @ExceptionHandler(IllegalStateException.class)
@@ -68,6 +68,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneric(Exception e) {
-        return build(HttpStatus.INTERNAL_SERVER_ERROR, "Erro interno do servidor.");
+        return build(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error.");
     }
 }

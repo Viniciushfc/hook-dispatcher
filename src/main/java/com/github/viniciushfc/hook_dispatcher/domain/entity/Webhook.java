@@ -23,8 +23,8 @@ public class Webhook extends AbstractBaseEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "ativo")
-    private boolean ativo;
+    @Column(name = "active")
+    private boolean active;
 
     @Column(name = "url")
     private String url;

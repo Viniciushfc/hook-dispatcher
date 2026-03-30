@@ -11,6 +11,6 @@ public class WebhookEventDTO {
 
     private UUID id;
     private EnumEventName name;
-    private boolean ativo;
+    private boolean active;
     private Webhook webhook;
 }

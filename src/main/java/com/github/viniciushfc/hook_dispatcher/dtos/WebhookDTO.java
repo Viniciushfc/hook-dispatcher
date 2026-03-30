@@ -10,7 +10,7 @@ public class WebhookDTO {
 
     private UUID id;
     private String name;
-    private boolean ativo;
+    private boolean active;
     private String url;
-    private List<WebhookEventDTO> eventsDTO;
+    private List<WebhookEventDTO> events;
 }

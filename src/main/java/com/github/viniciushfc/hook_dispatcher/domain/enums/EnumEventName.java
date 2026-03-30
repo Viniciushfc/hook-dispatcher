@@ -5,51 +5,51 @@ import com.github.viniciushfc.hook_dispatcher.domain.enums.contract.IEnum;
 public enum EnumEventName implements IEnum<String, String> {
 
     // ─── CRUD ───
-    RESOURCE_CREATED("resource.created", "Recurso criado"),
-    RESOURCE_UPDATED("resource.updated", "Recurso atualizado"),
-    RESOURCE_DELETED("resource.deleted", "Recurso deletado"),
-    RESOURCE_RETRIEVED("resource.retrieved", "Recurso consultado"),
+    RESOURCE_CREATED("resource.created", "Resource created"),
+    RESOURCE_UPDATED("resource.updated", "Resource updated"),
+    RESOURCE_DELETED("resource.deleted", "Resource deleted"),
+    RESOURCE_RETRIEVED("resource.retrieved", "Resource retrieved"),
 
-    // ─── Pagamentos ───
-    PAYMENT_INITIATED("payment.initiated", "Pagamento iniciado"),
-    PAYMENT_COMPLETED("payment.completed", "Pagamento concluído"),
-    PAYMENT_FAILED("payment.failed", "Pagamento falhou"),
-    PAYMENT_REFUNDED("payment.refunded", "Pagamento estornado"),
-    PAYMENT_CANCELLED("payment.cancelled", "Pagamento cancelado"),
-    PAYMENT_EXPIRED("payment.expired", "Pagamento expirado"),
-    PAYMENT_DISPUTED("payment.disputed", "Pagamento em disputa"),
+    // ─── Payments ───
+    PAYMENT_INITIATED("payment.initiated", "Payment initiated"),
+    PAYMENT_COMPLETED("payment.completed", "Payment completed"),
+    PAYMENT_FAILED("payment.failed", "Payment failed"),
+    PAYMENT_REFUNDED("payment.refunded", "Payment refunded"),
+    PAYMENT_CANCELLED("payment.cancelled", "Payment cancelled"),
+    PAYMENT_EXPIRED("payment.expired", "Payment expired"),
+    PAYMENT_DISPUTED("payment.disputed", "Payment disputed"),
 
-    // ─── Assinatura / Subscription ───
-    SUBSCRIPTION_CREATED("subscription.created", "Assinatura criada"),
-    SUBSCRIPTION_ACTIVATED("subscription.activated", "Assinatura ativada"),
-    SUBSCRIPTION_RENEWED("subscription.renewed", "Assinatura renovada"),
-    SUBSCRIPTION_PAUSED("subscription.paused", "Assinatura pausada"),
-    SUBSCRIPTION_CANCELLED("subscription.cancelled", "Assinatura cancelada"),
-    SUBSCRIPTION_EXPIRED("subscription.expired", "Assinatura expirou"),
+    // ─── Subscription ───
+    SUBSCRIPTION_CREATED("subscription.created", "Subscription created"),
+    SUBSCRIPTION_ACTIVATED("subscription.activated", "Subscription activated"),
+    SUBSCRIPTION_RENEWED("subscription.renewed", "Subscription renewed"),
+    SUBSCRIPTION_PAUSED("subscription.paused", "Subscription paused"),
+    SUBSCRIPTION_CANCELLED("subscription.cancelled", "Subscription cancelled"),
+    SUBSCRIPTION_EXPIRED("subscription.expired", "Subscription expired"),
 
-    // ─── Pedidos / Order ───
-    ORDER_CREATED("order.created", "Pedido criado"),
-    ORDER_CONFIRMED("order.confirmed", "Pedido confirmado"),
-    ORDER_SHIPPED("order.shipped", "Pedido enviado"),
-    ORDER_DELIVERED("order.delivered", "Pedido entregue"),
-    ORDER_CANCELLED("order.cancelled", "Pedido cancelado"),
-    ORDER_RETURNED("order.returned", "Pedido devolvido"),
+    // ─── Orders ───
+    ORDER_CREATED("order.created", "Order created"),
+    ORDER_CONFIRMED("order.confirmed", "Order confirmed"),
+    ORDER_SHIPPED("order.shipped", "Order shipped"),
+    ORDER_DELIVERED("order.delivered", "Order delivered"),
+    ORDER_CANCELLED("order.cancelled", "Order cancelled"),
+    ORDER_RETURNED("order.returned", "Order returned"),
 
-    // ─── Usuário ───
-    USER_REGISTERED("user.registered", "Usuário registrado"),
-    USER_VERIFIED("user.verified", "Usuário verificado"),
-    USER_UPDATED("user.updated", "Usuário atualizado"),
-    USER_DELETED("user.deleted", "Usuário deletado"),
-    USER_SUSPENDED("user.suspended", "Usuário suspenso"),
+    // ─── Users ───
+    USER_REGISTERED("user.registered", "User registered"),
+    USER_VERIFIED("user.verified", "User verified"),
+    USER_UPDATED("user.updated", "User updated"),
+    USER_DELETED("user.deleted", "User deleted"),
+    USER_SUSPENDED("user.suspended", "User suspended"),
 
-    // ─── Notificação / Sistema ───
-    NOTIFICATION_SENT("notification.sent", "Notificação enviada"),
-    NOTIFICATION_FAILED("notification.failed", "Notificação falhou"),
-    WEBHOOK_PING("webhook.ping", "Teste de conectividade"),
-    WEBHOOK_DISABLED("webhook.disabled", "Webhook desativado por falhas"),
+    // ─── Notifications / System ───
+    NOTIFICATION_SENT("notification.sent", "Notification sent"),
+    NOTIFICATION_FAILED("notification.failed", "Notification failed"),
+    WEBHOOK_PING("webhook.ping", "Connectivity test"),
+    WEBHOOK_DISABLED("webhook.disabled", "Webhook disabled due to failures"),
 
     // ─── Custom ───
-    CUSTOM("custom.event", "Evento customizado pelo usuário"),
+    CUSTOM("custom.event", "Custom event"),
     ;
 
     private final String key;
