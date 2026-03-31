@@ -17,8 +17,10 @@ public class WebhookServiceImpl extends AbstractBaseServiceImpl<Webhook, UUID, W
     @Transactional
     public WebhookResponse save(WebhookRequest request) {
         log.info("Saving new webhook");
+
         Webhook webhook = modelMapper.map(request, Webhook.class);
         Webhook persisted = repository.save(webhook);
+
         log.info("Webhook saved successfully. id={}", persisted.getId());
         return modelMapper.map(persisted, WebhookResponse.class);
     }
@@ -27,15 +29,24 @@ public class WebhookServiceImpl extends AbstractBaseServiceImpl<Webhook, UUID, W
     @Transactional
     public WebhookResponse update(UUID idWebhook, WebhookRequest request) {
         log.info("Updating webhook. id={}", idWebhook);
-        throw new UnsupportedOperationException("update not implemented yet");
+
+        Webhook webhook = findEntityById(idWebhook);
+        modelMapper.map(request, webhook);
+
+        Webhook updated = repository.save(webhook);
+        log.info("Webhook updated successfully. id={}", updated.getId());
+
+        return modelMapper.map(updated, WebhookResponse.class);
     }
 
     @Override
     @Transactional
     public void deactivateWebhook(UUID idWebhook) {
         log.info("Deactivating webhook. id={}", idWebhook);
+
         Webhook webhook = findEntityById(idWebhook);
         webhook.setActive(false);
+
         repository.save(webhook);
         log.info("Webhook deactivated successfully. id={}", idWebhook);
     }
