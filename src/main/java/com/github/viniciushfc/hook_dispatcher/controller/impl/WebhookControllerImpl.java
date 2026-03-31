@@ -1,7 +1,6 @@
 package com.github.viniciushfc.hook_dispatcher.controller.impl;
 
 import com.github.viniciushfc.hook_dispatcher.controller.contract.IWebhookController;
-import com.github.viniciushfc.hook_dispatcher.domain.entity.Webhook;
 import com.github.viniciushfc.hook_dispatcher.dtos.request.WebhookRequest;
 import com.github.viniciushfc.hook_dispatcher.dtos.response.WebhookResponse;
 import com.github.viniciushfc.hook_dispatcher.service.impl.WebhookServiceImpl;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
@@ -28,6 +28,16 @@ public class WebhookControllerImpl implements IWebhookController {
 
     @Override
     public ResponseEntity<WebhookResponse> save(WebhookRequest request) {
-        return new ResponseEntity<>(webhookService.save(request), HttpStatus.OK);
+        return new ResponseEntity<>(webhookService.save(request), HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<WebhookResponse> update(UUID idWebhook, WebhookRequest request) {
+        return new ResponseEntity<>(webhookService.update(idWebhook, request), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> deactivate(WebhookRequest request) {
+        return new ResponseEntity<>("Webhook deactivated successfully", HttpStatus.OK);
     }
 }
