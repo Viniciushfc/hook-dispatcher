@@ -15,5 +15,5 @@ public interface IWebhookController {
 
     ResponseEntity<WebhookResponse> update(UUID idWebhook, WebhookRequest request);
 
-    ResponseEntity<String> deactivate(WebhookRequest request);
+    ResponseEntity<String> deactivate(UUID idWebhook);
 }

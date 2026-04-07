@@ -14,5 +14,4 @@ public class WebhookResponse {
     private boolean active;
     private String url;
     private List<WebhookEventResponse> events;
-    private LocalDateTime createdAt;
 }

@@ -7,9 +7,8 @@ import com.github.viniciushfc.hook_dispatcher.service.impl.WebhookServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,18 +25,19 @@ public class WebhookControllerImpl implements IWebhookController {
         return new ResponseEntity<>(webhookService.findAll(), HttpStatus.OK);
     }
 
-    @Override
-    public ResponseEntity<WebhookResponse> save(WebhookRequest request) {
+    @PostMapping("/save")
+    public ResponseEntity<WebhookResponse> save(@RequestBody @Valid WebhookRequest request) {
         return new ResponseEntity<>(webhookService.save(request), HttpStatus.CREATED);
     }
 
-    @Override
-    public ResponseEntity<WebhookResponse> update(UUID idWebhook, WebhookRequest request) {
+    @PutMapping("/update/{idWebhook}")
+    public ResponseEntity<WebhookResponse> update(@PathVariable UUID idWebhook, @RequestBody @Valid WebhookRequest request) {
         return new ResponseEntity<>(webhookService.update(idWebhook, request), HttpStatus.OK);
     }
 
-    @Override
-    public ResponseEntity<String> deactivate(WebhookRequest request) {
+    @PatchMapping("/deactivate/{idWebhook}")
+    public ResponseEntity<String> deactivate(@PathVariable UUID idWebhook) {
+        webhookService.deactivateWebhook(idWebhook);
         return new ResponseEntity<>("Webhook deactivated successfully", HttpStatus.OK);
     }
 }
