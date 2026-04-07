@@ -1,6 +1,8 @@
 package com.github.viniciushfc.hook_dispatcher.exception;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private ResponseEntity<ErrorResponse> build(HttpStatus status, String message) {
         return ResponseEntity.status(status)
@@ -42,32 +45,50 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<ErrorResponse> handleMissingParam(MissingServletRequestParameterException e) {
+        log.error("Handle MissingServletRequestParameterException: {}", e.getMessage());
+
         return build(HttpStatus.BAD_REQUEST, "Required parameter missing: " + e.getParameterName());
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponse> handleTypeMismatch(MethodArgumentTypeMismatchException e) {
         String message = "Invalid value for parameter '" + e.getName() + "': " + e.getValue();
+        log.error("Handle MethodArgumentTypeMismatchException: {}", e.getMessage());
+
         return build(HttpStatus.BAD_REQUEST, message);
     }
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ErrorResponse> handleAuthentication(AuthenticationException e) {
+        log.error("Handle AuthenticationException: {}", e.getMessage());
+
         return build(HttpStatus.UNAUTHORIZED, "Authentication required: " + e.getMessage());
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAccessDenied(AccessDeniedException e) {
+        log.error("Handle AccessDeniedException: {}", e.getMessage());
+
         return build(HttpStatus.FORBIDDEN, "Access denied.");
     }
 
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<ErrorResponse> handleConflict(IllegalStateException e) {
+        log.error("Handle IllegalStateException: {}", e.getMessage());
+
         return build(HttpStatus.CONFLICT, e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneric(Exception e) {
+        log.error("Handle Exception: {}", e.getMessage());
+
+        return build(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error.");
+    }
+
+    @ExceptionHandler(HookDispatcherException.class)
+    public ResponseEntity<ErrorResponse> handleGeneric(HookDispatcherException e) {
+        log.error("Handle HookDispatcherException: {}", e.getMessage());
         return build(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error.");
     }
 }
